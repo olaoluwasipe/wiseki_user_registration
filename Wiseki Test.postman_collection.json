@@ -1,0 +1,149 @@
+{
+	"info": {
+		"_postman_id": "f9f5cb61-7581-43b3-beeb-9d4dd54058ad",
+		"name": "Wiseki Test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17733888"
+	},
+	"item": [
+		{
+			"name": "http://127.0.0.1:8000/api/register?fullname={{$randomUserName}}&email={{randomEmail}}&phone={{$randomPhoneNumber}}&address={{$randomStreetAddress}}&registration_code=",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/register?fullname={{$randomUserName}}&email=olaoluwasipe96@gmail.com&phone={{$randomPhoneNumber}}&address={{$randomStreetAddress}}&registration_code=588899",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"register"
+					],
+					"query": [
+						{
+							"key": "fullname",
+							"value": "{{$randomUserName}}"
+						},
+						{
+							"key": "email",
+							"value": "olaoluwasipe96@gmail.com"
+						},
+						{
+							"key": "phone",
+							"value": "{{$randomPhoneNumber}}"
+						},
+						{
+							"key": "address",
+							"value": "{{$randomStreetAddress}}"
+						},
+						{
+							"key": "registration_code",
+							"value": "588899"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:8000/api/request-code?email={{emailHere}}",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/request-code?email=olaoluwa933@gmail.com",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"request-code"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "olaoluwa933@gmail.com"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:8000/api/webhook/update-status?email={{emailhere}}&status=active",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/webhook/update-status?email=olaoluwasipe96@gmail.com&status=active",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"webhook",
+						"update-status"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "{{$randomEmail}}"
+						},
+						{
+							"key": "status",
+							"value": "active"
+						}
+					]
+				},
+				"description": "This webhook is used to update the status of the user (active,rejected)"
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:8000/api/users?status=all",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/users?status=all",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"users"
+					],
+					"query": [
+						{
+							"key": "status",
+							"value": "all"
+						}
+					]
+				},
+				"description": "Get request to get users based off the status parameter (all,active,rejected,pending)"
+			},
+			"response": []
+		}
+	]
+}
