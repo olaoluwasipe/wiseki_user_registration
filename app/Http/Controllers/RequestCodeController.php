@@ -10,11 +10,11 @@ use Illuminate\Support\Facades\Validator;
 class RequestCodeController extends Controller
 {
     public function requestCode (Request $request) {
-        $validate = $request->validate([
-            'email' => 'required|email|unique:users'
+        $validate = Validator::make($request->all(), [
+            'email' => 'required|email|unique:users',
         ]);
 
-        // if($validate->fails()) return response()->json(['error' => $validate->errors()], 400);
+        if($validate->fails()) return response()->json(['error' => $validate->errors()], 400);
 
         $code = rand(000000, 999999);
 

@@ -4,14 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class WebhookController extends Controller
 {
     public function updateStatus (Request $request) {
-        $validate =  $request->validate([
-            'email' => 'required|email',
+        $validate = Validator::make($request->all(), [
+            'email' => 'required|email|unique:users',
             'status' => 'required|in:active,rejected'
         ]);
+
+        if($validate->fails()) return response()->json(['error' => $validate->errors()], 400);
+
 
         $findUser = User::where('email', $validate['email'])->first();
 

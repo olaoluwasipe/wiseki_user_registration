@@ -6,17 +6,21 @@ use App\Models\Code;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
 {
     public function register (Request $request) {
-        $validate = $request->validate([
+
+        $validate = Validator::make($request->all(), [
             'fullname' => 'required',
             'email' => 'required|email|unique:users',
             'phone' => 'required',
             'address' => 'required',
             'registration_code' => 'required',
         ]);
+
+        if($validate->fails()) return response()->json(['errors' => $validate->errors()], 400);
 
         $findCode = Code::where('email', $validate['email'])->where('code', $validate['registration_code'])->first();
 
