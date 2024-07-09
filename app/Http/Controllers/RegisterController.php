@@ -22,15 +22,15 @@ class RegisterController extends Controller
 
         if($validate->fails()) return response()->json(['errors' => $validate->errors()], 400);
 
-        $findCode = Code::where('email', $validate['email'])->where('code', $validate['registration_code'])->first();
+        $findCode = Code::where('email',  $request->email)->where('code', $request->registration_code)->first();
 
         if(!$findCode) return response()->json(['error' => 'Sorry, this code is incorrect'], 400);
 
         $newUser = User::create([
-            'fullname' => $validate['fullname'],
-            'email' => $validate['email'],
-            'phone' => $validate['phone'],
-            'address' => $validate['address'],
+            'fullname' => $request->fullname,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'address' => $request->address,
             'status' => 'pending'
         ]);
 

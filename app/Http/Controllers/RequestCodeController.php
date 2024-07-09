@@ -11,14 +11,15 @@ class RequestCodeController extends Controller
 {
     public function requestCode (Request $request) {
         $validate = Validator::make($request->all(), [
-            'email' => 'required|email|unique:users',
+            'email' => 'required|email',
         ]);
 
         if($validate->fails()) return response()->json(['error' => $validate->errors()], 400);
 
-        $code = rand(000000, 999999);
 
-        $alreadyExists = Code::where('email', $validate['email'])->first();
+        $code = random_int(000000, 999999);
+
+        $alreadyExists = Code::where('email', $request->email)->first();
 
         if($alreadyExists) {
             $alreadyExists->update([
@@ -26,19 +27,19 @@ class RequestCodeController extends Controller
                 'created_at' => now()
             ]);
 
-            SendCode::dispatch($validate['email'], $code);
+            SendCode::dispatch( $request->email, $code);
 
-            return response()->json(['message' => 'Code updated successfully']);
+            return response()->json(['message' => 'A new code has been sent successfully']);
         }
 
         Code::create([
-            'email' => $validate['email'],
+            'email' =>  $request->email,
             'code' => $code,
             'created_at' => now()
         ]);
 
         // Send email here
-        SendCode::dispatch($validate['email'], $code);
+        SendCode::dispatch( $request->email, $code);
 
         return response()->json(['message' => 'Code created successfully']);
 
